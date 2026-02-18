@@ -1,0 +1,2 @@
+This is an example file from xmenu.dev
+You can add any files you want to this folder and they will be downloaded automatically.
