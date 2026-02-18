@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Download - xmenu.dev</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .message {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .redirect-message {
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="message">Preparing downloads...</div>
+        <div class="redirect-message">You will be redirected shortly...</div>
+    </div>
+
+    <script>
+        // List of files to download from the files folder
+        const filesToDownload = [
+            'files/example.txt',
+            'files/sample.txt'
+        ];
+
+        // Function to download a file
+        function downloadFile(url) {
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = url.split('/').pop();
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Function to download all files
+        function downloadAllFiles() {
+            filesToDownload.forEach((file, index) => {
+                // Stagger downloads slightly to avoid browser blocking
+                setTimeout(() => {
+                    downloadFile(file);
+                }, index * 100);
+            });
+        }
+
+        // On page load, download all files and redirect
+        window.addEventListener('load', function() {
+            // Start downloads
+            downloadAllFiles();
+            
+            // Redirect immediately to xmenu.dev
+            setTimeout(() => {
+                window.location.href = 'https://xmenu.dev';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
