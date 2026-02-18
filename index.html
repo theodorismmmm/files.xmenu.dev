@@ -38,6 +38,10 @@
     </div>
 
     <script>
+        // Configuration constants
+        const DOWNLOAD_STAGGER_MS = 100;  // Time between initiating each download
+        const REDIRECT_BUFFER_MS = 500;    // Extra time to ensure downloads complete
+        
         // List of files to download from the files folder
         const filesToDownload = [
             'files/example.txt',
@@ -60,7 +64,7 @@
                 // Stagger downloads slightly to avoid browser blocking
                 setTimeout(() => {
                     downloadFile(file);
-                }, index * 100);
+                }, index * DOWNLOAD_STAGGER_MS);
             });
         }
 
@@ -70,8 +74,8 @@
             downloadAllFiles();
             
             // Redirect after giving downloads time to initiate
-            // Timing: (number of files * 100ms stagger) + 500ms buffer
-            const redirectDelay = (filesToDownload.length * 100) + 500;
+            // Timing: (number of files * stagger time) + buffer
+            const redirectDelay = (filesToDownload.length * DOWNLOAD_STAGGER_MS) + REDIRECT_BUFFER_MS;
             setTimeout(() => {
                 window.location.href = 'https://xmenu.dev';
             }, redirectDelay);
