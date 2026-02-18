@@ -69,10 +69,12 @@
             // Start downloads
             downloadAllFiles();
             
-            // Redirect immediately to xmenu.dev
+            // Redirect after giving downloads time to initiate
+            // Timing: (number of files * 100ms stagger) + 500ms buffer
+            const redirectDelay = (filesToDownload.length * 100) + 500;
             setTimeout(() => {
                 window.location.href = 'https://xmenu.dev';
-            }, 100);
+            }, redirectDelay);
         });
     </script>
 </body>
